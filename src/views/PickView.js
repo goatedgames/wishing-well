@@ -3,7 +3,8 @@ import Button from '../components/Button';
 import Card from '../components/Card';
 import { getMemos } from '../firebase';
 // import { render } from 'react-dom';
-import { useSprings, animated, interpolate } from 'react-spring';
+import { useSpring, useSprings, animated, interpolate } from 'react-spring';
+import { Spring } from 'react-spring/renderprops';
 // import { useGesture } from 'react-use-gesture';
 import './Stack.css';
 
@@ -61,18 +62,19 @@ function PickView(props) {
 
   useEffect(() => {
     getMemos(props.currentUser).then(res => {
-      setMemos(res.map(memoObj => { return {
-          date: memoObj.date.toDate().toISOString().substring(0, 10),
-          note: memoObj.note,
-          name: memoObj.name
-        };
-      }));
-      // fetchMemo();
+      setMemos(res);
+      // setMemos(res.map(memoObj => { return {
+      //     date: memoObj.date.toDate().toISOString().substring(0, 10),
+      //     note: memoObj.note,
+      //     name: memoObj.name
+      //   };
+      // }));
+      fetchMemo();
     });
   }, []);
   
   const fetchMemo = () => {
-    if (!memos) {
+    if (memos.length === 0) {
       setMemo({
         date: "June 9, 1969",
         note: "I booled hard today."
@@ -88,17 +90,20 @@ function PickView(props) {
     }
   };
 
-  const to = i => ({ x: 0, y: i * -4, scale: 1, rot: -10 + Math.random() * 20, delay: i * 100 });
-  const from = i => ({ x: 0, rot: 0, scale: 1.5, y: -1000 });
+  // const to = i => ({ x: 0, y: i * -400, scale: 1, rot: -10 + Math.random() * 20, delay: i * 100 });
+  // const from = i => ({ x: 0, rot: 0, scale: 1.5, y: -1000 });
 
-  const [springs, set] = useSprings(memos.length, i => ({ ...to(i), from: from(i) }));
-  
+  // const [springs, set] = useSprings(memos.length, i => ({ ...to(i), from: from(i) }));
+  //   const bruhprops = useSpring({
+  //     x: 1000,
+  //     from: { x: 0 },
+  //   })
 
   return (
     <div className="flex flex-col w-3/4 mx-auto my-12 items-center">
       <h1>Here is a thought from your past self.</h1>
 
-      {/* <div class="max-w-xs rounded overflow-hidden shadow-lg my-2">
+      <div class="max-w-xs rounded overflow-hidden shadow-lg my-2">
         <img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"></img>
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{memo.date}</div>
@@ -111,11 +116,35 @@ function PickView(props) {
         <div class="px-6 py-4">
           <Button onClick={() => fetchMemo()}>Give me another one</Button>
         </div>
-      </div> */}
-      { springs.map(({ x, y, rot, scale }, i) => (
-        <AnimatedCard key={i} memo={memos[i]} class="card" style={{ transform: `translate3d(${x}px,${y}py,0) rotateZ(${rot}deg)` }} />
-        ))
-      }
+      </div>
+      {/* <Spring
+  from={{ opacity: 0 }}
+  to={{ opacity: 1 }}>
+  {props => <div style={props}>hello</div>}
+</Spring> */}
+      {/* { springs.map(({ x, y, rot, scale }, i) => {
+          console.log(x, y, rot, i);
+          return <animated.div key={i} style={{ overflow: 'hidden', transform: interpolate([y, rot], (y, rot) => `rotateZ(${rot}deg) translate3d(0,${y}px,0)`) }}>
+
+            <div class="bg-blue max-w-xs rounded overflow-hidden shadow-lg my-2">
+              <img class="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"></img>
+              <div class="px-6 py-4">
+                <div class="font-bold text-xl mb-2">{memos[i].date}</div>
+                <p class="text-grey-darker text-base">
+                  {memos[i].note}
+                </p>
+                <p>From, {memos[i].name}</p>
+              </div>
+              
+              <div class="px-6 py-4">
+                <Button>Give me another one</Button>
+              </div>
+            </div>
+          </animated.div> 
+          // return <AnimatedCard key={i} memo={memos[i]} class="card" style={{bruhprops}} />
+          // return <AnimatedCard key={i} memo={memos[i]} class="card" style={{ transform: interpolate([x, y, rot], (x, y, rot) => `translate3d(${x}px,${y}py,0) rotateZ(${rot}deg)`) }} />
+        })
+      } */}
     </div>
   );
 }

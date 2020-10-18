@@ -1,6 +1,9 @@
 .card {
+    /* background-color: white; */
+    overflow: auto;
     background: lightblue;
     position: absolute;
+    will-change: transform;
 }
 /* #card-root {
     background: lightblue;
