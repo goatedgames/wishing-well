@@ -3,15 +3,16 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+// add your Firebase configs here
 const firebaseConfig = {
-  apiKey: "AIzaSyApZoVluZrGTiEPyMYTGbhtWaWuaGkMplI",
-  authDomain: "wishingwell-462a9.firebaseapp.com",
-  databaseURL: "https://wishingwell-462a9.firebaseio.com",
-  projectId: "wishingwell-462a9",
-  storageBucket: "wishingwell-462a9.appspot.com",
-  messagingSenderId: "605299597923",
-  appId: "1:605299597923:web:64fa105df5aa06816bce56",
-  measurementId: "G-P80Q2080G9"
+  apiKey: ########################,
+  authDomain: ###########################,
+  databaseURL: ##########################,
+  projectId: ###########################,
+  storageBucket: #######################,
+  messagingSenderId: ################,
+  appId: ############################################,
+  measurementId: #-##########
 };
 
 firebase.initializeApp(firebaseConfig);
