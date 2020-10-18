@@ -28,8 +28,7 @@ function AddView(props) {
 const detectSentiment = async (text) => {
   var requestUrl = [
     'https://language.googleapis.com/v1/documents:analyzeSentiment?key=',
-    "AIzaSyApZoVluZrGTiEPyMYTGbhtWaWuaGkMplI"
-  ].join("");
+    ##################  ].join(""); // API Key goes here
   var data = {
     "document": {
       "language": "en-us",
