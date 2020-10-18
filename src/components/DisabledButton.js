@@ -1,0 +1,12 @@
+import React from 'react';
+
+export default function DisabledButton({ children, ...buttonProps }) {
+  return (
+    <button
+      className="px-2 py-1 m-4 rounded-1g bg-green-400 text-green-800 text-x1 font-light uppercase shadow-md hover:shadow-lg opacity-50 cursor-not-allowed"
+      {...buttonProps}
+    >
+        {children}
+    </button>
+  )
+}
